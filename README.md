@@ -153,12 +153,36 @@ v.Execute the file
 
 we have successfully installed DOCKER.
 
+### Add jenkins user to docker group.
+
+
+1. **Add Jenkins user to Docker group:**
+   ```bash
+   sudo usermod -aG docker jenkins
+   ```
+
+2. **Restart Jenkins service:**
+   ```bash
+   sudo systemctl restart jenkins
+   ```
+
+3. **Restart Docker service:**
+   ```bash
+   sudo systemctl restart docker
+   ```
+
+4. **Verify Docker group membership:**
+   ```bash
+   groups jenkins
+   ```
+
+This ensures the Jenkins user has the necessary permissions to interact with the Docker daemon. After making these changes, try running your pipeline again.
+
 ### Building Pipeline Script
 
 Now that we have docker installed on the same instance as jenkins,we need to create a docker file before we can run our pipeline script.We cannot build a docker image without a docker file.
 
 i. Create a dockerfile and paste this below.
-
 
 
 ```Dockerfile
@@ -180,6 +204,19 @@ ii.Create an index file and paste the content below
     Congratulations, You have successfully run your first pipeline code.
 
 Pushing these files dockerfile and index.html will trigger jenkins to automatically run new build for our pipeline.
+
+![](./img/j13.png)
+
+To access the content of our index.html file on our web browser.Edit inbound rules and open the port mapped to our container (port:8081)
+
+![](./img/j12.png)
+
+we can now access the content of our index.html file on our web browser
+
+    http://jenkins-ip-address:8081
+
+
+![](./img/j14.png)
 
 
 
